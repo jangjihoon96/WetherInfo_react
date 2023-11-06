@@ -1,7 +1,19 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export const Main = () => {
   const [currentTmp, setCurrentTmp] = useState("");
+  const [seoul, setSeoul] = useState([]);
+  const [incheon, setIncheon] = useState([]);
+  const [gyeonggido, setGyeonggido] = useState([]);
+  const [gangwondo, setGangwondo] = useState([]);
+  const [chungcheongbukdo, setChungcheongbukdo] = useState([]);
+  const [chungcheongnamdo, setChungcheongnamdo] = useState([]);
+  const [jeollabukdo, setJeollabukdo] = useState([]);
+  const [jeollanamdo, setJeollanamdo] = useState([]);
+  const [gyeongsangnamdo, setGyeongsangnamdo] = useState([]);
+  const [gyeongsangbukdo, setGyeongsangbukdo] = useState([]);
+  const [jeju, setJeju] = useState([]);
   useEffect(() => {
     let today = new Date();
     let week = ["일", "월", "화", "수", "목", "금", "토"];
@@ -44,27 +56,115 @@ export const Main = () => {
       { region: "경상북도", nx: 91, ny: 106 },
       { region: "제주도", nx: 52, ny: 38 },
     ];
-    fetch(
-      `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=2OU9Jg79p0HKybmFKd8HRaUlLTGYtHFpyPIFm2Z3Pf6pDxEnk%2Bc%2BQfnWBk1T0wYvFswug1OxT%2FudNWWwsndtJA%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${now}&base_time=${near_hour_al}00&nx=60&ny=127`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res);
-        let result = res.response.body.items.item;
-        const currentTemperature = result.filter(
-          (item: any) => item.category === "TMP" && item.fcstDate === now
+    const apiRequests = korea.map(({ nx, ny }) => {
+      return axios.get(
+        `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=2OU9Jg79p0HKybmFKd8HRaUlLTGYtHFpyPIFm2Z3Pf6pDxEnk%2Bc%2BQfnWBk1T0wYvFswug1OxT%2FudNWWwsndtJA%3D%3D&pageNo=1&numOfRows=99&dataType=JSON&base_date=${now}&base_time=${near_hour_al}00&nx=${nx}&ny=${ny}`
+      );
+    });
+    const filterData = ["POP", "PTY", "PCP", "TMP", "TMN", "TMX"];
+    Promise.all(apiRequests).then((results) => {
+      results.forEach((res, idx) => {
+        let items = res.data.response.body.items.item;
+        let filterItem = items.filter(
+          (item: any) =>
+            filterData.includes(item.category) && item.fcstDate === now
         );
-        console.log(currentTemperature);
-        setCurrentTmp(currentTemperature[0].fcstValue);
+        if (idx === 0) {
+          setSeoul(filterItem);
+        } else if (idx === 1) {
+          setIncheon(filterItem);
+        } else if (idx === 2) {
+          setGyeonggido(filterItem);
+        } else if (idx === 3) {
+          setGangwondo(filterItem);
+        } else if (idx === 4) {
+          setChungcheongbukdo(filterItem);
+        } else if (idx === 5) {
+          setChungcheongnamdo(filterItem);
+        } else if (idx === 6) {
+          setJeollabukdo(filterItem);
+        } else if (idx === 7) {
+          setJeollanamdo(filterItem);
+        } else if (idx === 8) {
+          setGyeongsangnamdo(filterItem);
+        } else if (idx === 9) {
+          setGyeongsangbukdo(filterItem);
+        } else if (idx === 10) {
+          setJeju(filterItem);
+        }
       });
+      // console.log(results[0].data.response.body);
+    });
   }, []);
   return (
     <div>
       <h1>전국 날씨 조회</h1>
       <div>
-        <p>
-          서울날씨 <span>{currentTmp}도</span>
-        </p>
+        <h2>서울날씨</h2>
+        <p>{JSON.stringify(seoul[0])}</p>
+        <p>{JSON.stringify(seoul[1])}</p>
+        <p>{JSON.stringify(seoul[2])}</p>
+        <p>{JSON.stringify(seoul[3])}</p>
+        <hr />
+        <h2>인천날씨</h2>
+        <p>{JSON.stringify(incheon[0])}</p>
+        <p>{JSON.stringify(incheon[1])}</p>
+        <p>{JSON.stringify(incheon[2])}</p>
+        <p>{JSON.stringify(incheon[3])}</p>
+        <hr />
+        <h2>경기도날씨</h2>
+        <p>{JSON.stringify(gyeonggido[0])}</p>
+        <p>{JSON.stringify(gyeonggido[1])}</p>
+        <p>{JSON.stringify(gyeonggido[2])}</p>
+        <p>{JSON.stringify(gyeonggido[3])}</p>
+        <hr />
+        <h2>강원도날씨</h2>
+        <p>{JSON.stringify(gangwondo[0])}</p>
+        <p>{JSON.stringify(gangwondo[1])}</p>
+        <p>{JSON.stringify(gangwondo[2])}</p>
+        <p>{JSON.stringify(gangwondo[3])}</p>
+        <hr />
+        <h2>충청북도날씨</h2>
+        <p>{JSON.stringify(chungcheongbukdo[0])}</p>
+        <p>{JSON.stringify(chungcheongbukdo[1])}</p>
+        <p>{JSON.stringify(chungcheongbukdo[2])}</p>
+        <p>{JSON.stringify(chungcheongbukdo[3])}</p>
+        <hr />
+        <h2>충청남도날씨</h2>
+        <p>{JSON.stringify(chungcheongnamdo[0])}</p>
+        <p>{JSON.stringify(chungcheongnamdo[1])}</p>
+        <p>{JSON.stringify(chungcheongnamdo[2])}</p>
+        <p>{JSON.stringify(chungcheongnamdo[3])}</p>
+        <hr />
+        <h2>전라북도날씨</h2>
+        <p>{JSON.stringify(jeollabukdo[0])}</p>
+        <p>{JSON.stringify(jeollabukdo[1])}</p>
+        <p>{JSON.stringify(jeollabukdo[2])}</p>
+        <p>{JSON.stringify(jeollabukdo[3])}</p>
+        <hr />
+        <h2>전라남도날씨</h2>
+        <p>{JSON.stringify(jeollanamdo[0])}</p>
+        <p>{JSON.stringify(jeollanamdo[1])}</p>
+        <p>{JSON.stringify(jeollanamdo[2])}</p>
+        <p>{JSON.stringify(jeollanamdo[3])}</p>
+        <hr />
+        <h2>경상북도날씨</h2>
+        <p>{JSON.stringify(gyeongsangbukdo[0])}</p>
+        <p>{JSON.stringify(gyeongsangbukdo[1])}</p>
+        <p>{JSON.stringify(gyeongsangbukdo[2])}</p>
+        <p>{JSON.stringify(gyeongsangbukdo[3])}</p>
+        <hr />
+        <h2>경상남도날씨</h2>
+        <p>{JSON.stringify(gyeongsangnamdo[0])}</p>
+        <p>{JSON.stringify(gyeongsangnamdo[1])}</p>
+        <p>{JSON.stringify(gyeongsangnamdo[2])}</p>
+        <p>{JSON.stringify(gyeongsangnamdo[3])}</p>
+        <hr />
+        <h2>제주도날씨</h2>
+        <p>{JSON.stringify(jeju[0])}</p>
+        <p>{JSON.stringify(jeju[1])}</p>
+        <p>{JSON.stringify(jeju[2])}</p>
+        <p>{JSON.stringify(jeju[3])}</p>
       </div>
     </div>
   );
