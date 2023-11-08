@@ -42,11 +42,11 @@ export const Main = () => {
       )
       .then((res) => {
         let result = res.data.response.body.items.item;
-        console.log(result);
+        // console.log(result);
         const currentTemperature = result.filter((item: any) =>
           filterData.includes(item.category)
         );
-        console.log(currentTemperature);
+        // console.log(currentTemperature);
         setCurrentTmp(currentTemperature);
       })
       .catch((err) => {
@@ -103,7 +103,7 @@ export const Main = () => {
     seoulTmp();
   }, []);
   return (
-    <div>
+    <StyledContainer>
       <h1>오늘의 날씨</h1>
       <StyledUl>
         {korea.map((btn, idx) => {
@@ -116,7 +116,7 @@ export const Main = () => {
           );
         })}
       </StyledUl>
-      <div>
+      <StyledContents>
         <h2>{region} 날씨</h2>
         {currentTmp.length !== 0 ? (
           currentTmp
@@ -149,14 +149,31 @@ export const Main = () => {
         ) : (
           <div>데이터 불러오는 중...</div>
         )}
-      </div>
-    </div>
+      </StyledContents>
+    </StyledContainer>
   );
 };
 
+const StyledContainer = styled.div`
+  box-sizing: border-box;
+  max-width: 840px;
+  padding: 0 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    padding: 30px 0 0 0;
+  }
+  h2 {
+    margin: 40px 0;
+  }
+`;
 const StyledUl = styled.ul`
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
+  justify-content: center;
   padding: 0;
   gap: 10px;
   li {
@@ -173,4 +190,8 @@ const StyledUl = styled.ul`
       background-color: #8a8aff;
     }
   }
+`;
+
+const StyledContents = styled.div`
+  width: 100%;
 `;
