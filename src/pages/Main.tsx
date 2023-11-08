@@ -31,19 +31,6 @@ export const Main = () => {
   } else if (hours <= 24) {
     near_hour_al = hours_al[7];
   }
-  let korea = [
-    { region: "서울", nx: 60, ny: 127 },
-    { region: "인천", nx: 55, ny: 124 },
-    { region: "경기도", nx: 60, ny: 121 },
-    { region: "강원도", nx: 92, ny: 131 },
-    { region: "충청북도", nx: 69, ny: 106 },
-    { region: "충청남도", nx: 68, ny: 100 },
-    { region: "전라북도", nx: 63, ny: 89 },
-    { region: "전라남도", nx: 50, ny: 67 },
-    { region: "경상남도", nx: 90, ny: 77 },
-    { region: "경상북도", nx: 91, ny: 106 },
-    { region: "제주도", nx: 52, ny: 38 },
-  ];
   const filterData = ["POP", "PTY", "TMP", "TMN", "TMX"];
   const fetchData = (region: string, nx: number, ny: number) => {
     setRegion(region);
@@ -99,68 +86,35 @@ export const Main = () => {
   const jejuTmp = () => {
     fetchData("제주도", 52, 38);
   };
+  let korea = [
+    { region: "서울", nx: 60, ny: 127, event: seoulTmp },
+    { region: "인천", nx: 55, ny: 124, event: inchenTmp },
+    { region: "경기도", nx: 60, ny: 121, event: gyeonggidoTmp },
+    { region: "강원도", nx: 92, ny: 131, event: gangwondoTmp },
+    { region: "충청북도", nx: 69, ny: 106, event: chungcheongbukdoTmp },
+    { region: "충청남도", nx: 68, ny: 100, event: chungcheongnamdoTmp },
+    { region: "전라북도", nx: 63, ny: 89, event: jeollabukdoTmp },
+    { region: "전라남도", nx: 50, ny: 67, event: jeollanamdoTmp },
+    { region: "경상북도", nx: 91, ny: 106, event: gyeongsangbukdoTmp },
+    { region: "경상남도", nx: 90, ny: 77, event: gyeongsangnamdoTmp },
+    { region: "제주도", nx: 52, ny: 38, event: jejuTmp },
+  ];
   useEffect(() => {
     seoulTmp();
   }, []);
   return (
     <div>
-      <h1>전국 날씨 조회</h1>
+      <h1>오늘의 날씨</h1>
       <StyledUl>
-        <li>
-          <button type="button" onClick={seoulTmp}>
-            서울
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={inchenTmp}>
-            인천
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={gyeonggidoTmp}>
-            경기도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={gangwondoTmp}>
-            강원도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={chungcheongbukdoTmp}>
-            충청북도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={chungcheongnamdoTmp}>
-            충청남도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={jeollabukdoTmp}>
-            전라북도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={jeollanamdoTmp}>
-            전라남도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={gyeongsangbukdoTmp}>
-            경상북도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={gyeongsangnamdoTmp}>
-            경상남도
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={jejuTmp}>
-            제주도
-          </button>
-        </li>
+        {korea.map((btn, idx) => {
+          return (
+            <li key={idx}>
+              <button type="button" onClick={btn.event}>
+                {btn.region}
+              </button>
+            </li>
+          );
+        })}
       </StyledUl>
       <div>
         <h2>{region} 날씨</h2>
