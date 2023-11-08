@@ -48,9 +48,10 @@ export const Main = () => {
   const fetchData = (region: string, nx: number, ny: number) => {
     setRegion(region);
     setCurrentTmp([]);
+    const secretKey = process.env.REACT_APP_WEATHER_SECRET_KEY;
     axios
       .get(
-        `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=2OU9Jg79p0HKybmFKd8HRaUlLTGYtHFpyPIFm2Z3Pf6pDxEnk%2Bc%2BQfnWBk1T0wYvFswug1OxT%2FudNWWwsndtJA%3D%3D&pageNo=1&numOfRows=100&dataType=JSON&base_date=${now}&base_time=${near_hour_al}00&nx=${nx}&ny=${ny}`
+        `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${secretKey}&pageNo=1&numOfRows=100&dataType=JSON&base_date=${now}&base_time=${near_hour_al}00&nx=${nx}&ny=${ny}`
       )
       .then((res) => {
         let result = res.data.response.body.items.item;
