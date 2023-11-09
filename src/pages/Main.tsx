@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { WeatherIcon } from "../components/WeatherIcon";
 
 export const Main = () => {
-  const [region, setRegion] = useState<string>("");
-  const [currentTmp, setCurrentTmp] = useState<any[]>([]);
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth() + 1;
@@ -32,7 +30,10 @@ export const Main = () => {
   } else if (hours <= 24) {
     near_hour_al = hours_al[7];
   }
-  const filterData = ["POP", "TMP"];
+  const [region, setRegion] = useState<string>("");
+  const [currentTmp, setCurrentTmp] = useState<any[]>([]);
+  const [date, setDate] = useState(now);
+  const filterData = ["POP", "SKY", "TMP"];
   const fetchData = (region: string, nx: number, ny: number) => {
     setRegion(region);
     setCurrentTmp([]);
@@ -48,7 +49,28 @@ export const Main = () => {
           filterData.includes(item.category)
         );
         console.log(currentTemperature);
-        setCurrentTmp(currentTemperature);
+        // 결과를 저장할 빈 배열
+        const outputData: any[] = [];
+
+        // 데이터를 처리하면서 원하는 형태로 합칩니다
+        currentTemperature.forEach((item: any) => {
+          const existingItem = outputData.find(
+            (outputItem) =>
+              outputItem.baseDate === item.baseDate &&
+              outputItem.baseTime === item.baseTime &&
+              outputItem.fcstDate === item.fcstDate &&
+              outputItem.fcstTime === item.fcstTime
+          );
+
+          if (existingItem) {
+            existingItem.fcstValue.push(item.fcstValue);
+          } else {
+            item.fcstValue = [item.fcstValue];
+            outputData.push(item);
+          }
+        });
+        console.log(outputData);
+        setCurrentTmp(outputData);
       })
       .catch((err) => {
         console.log(err);
@@ -118,35 +140,27 @@ export const Main = () => {
         })}
       </StyledUl>
       <StyledContents>
-        <h2>{region} 날씨</h2>
+        <h2 className="region">{region} 날씨</h2>
+        <p className="date">
+          {date.slice(0, 4)}년 {date.slice(4, 6)}월 {date.slice(6)}일
+        </p>
         {currentTmp.length !== 0 ? (
           currentTmp
             .filter(
               (a) =>
                 (a.fcstDate === now && a.category === "TMP") ||
-                (a.fcstDate === now && a.category === "POP")
+                (a.fcstDate === now && a.category === "POP") ||
+                (a.fcstDate === now && a.category === "SKY")
             )
             .map((a, idx) => {
-              if (idx % 2 === 0) {
-                return (
-                  <div key={idx}>
-                    <p>
-                      날짜 : {a.fcstDate.slice(0, 4)}년 {a.fcstDate.slice(4, 6)}
-                      월 {a.fcstDate.slice(6)}일, 시간 :{" "}
-                      {a.fcstTime.slice(0, 2)}시 {a.fcstTime.slice(2)}분
-                    </p>
-                    <p>온도 : {a.fcstValue}도</p>
-                  </div>
-                );
-              } else {
-                return (
-                  <div key={idx}>
-                    <WeatherIcon fcstValue={a.fcstValue} />
-                    <p>강수확률 : {a.fcstValue}%</p>
-                    <hr />
-                  </div>
-                );
-              }
+              return (
+                <StyledCard key={idx}>
+                  <p className="time">{a.fcstTime.slice(0, 2)}시</p>
+                  <WeatherIcon fcstValue={a.fcstValue[1]} />
+                  <p className="percentage">{a.fcstValue[2]}%</p>
+                  <p className="tmp">{a.fcstValue[0]}&#8451;</p>
+                </StyledCard>
+              );
             })
         ) : (
           <div>데이터 불러오는 중...</div>
@@ -166,10 +180,8 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
   h1 {
-    padding: 30px 0 0 0;
-  }
-  h2 {
-    margin: 40px 0;
+    padding: 40px 0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
 `;
 const StyledUl = styled.ul`
@@ -182,18 +194,60 @@ const StyledUl = styled.ul`
     list-style: none;
   }
   button {
-    background-color: #6363ff;
+    background-color: #418781;
+    font-weight: 700;
     color: #ffffff;
     border: 0;
-    padding: 4px 12px;
+    padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
     &:hover {
-      background-color: #8a8aff;
+      background-color: #55b2aa;
     }
   }
 `;
 
 const StyledContents = styled.div`
   width: 100%;
+  .region {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  .date {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+const StyledCard = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 16px 30px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 24px;
+  text-align: center;
+  border-radius: 8px;
+  .time {
+    font-weight: 700;
+    font-size: 20px;
+    padding: 10px 0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  .percentage {
+    font-size: 20px;
+    color: #f0f0f0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  .tmp {
+    font-weight: 700;
+    padding: 20px 0 10px 0;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
 `;
