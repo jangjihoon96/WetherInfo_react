@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { WeatherIcon } from "../components/WeatherIcon";
 
 export const Main = () => {
   const [region, setRegion] = useState<string>("");
@@ -31,7 +32,7 @@ export const Main = () => {
   } else if (hours <= 24) {
     near_hour_al = hours_al[7];
   }
-  const filterData = ["POP", "PTY", "TMP", "TMN", "TMX"];
+  const filterData = ["POP", "TMP"];
   const fetchData = (region: string, nx: number, ny: number) => {
     setRegion(region);
     setCurrentTmp([]);
@@ -46,7 +47,7 @@ export const Main = () => {
         const currentTemperature = result.filter((item: any) =>
           filterData.includes(item.category)
         );
-        // console.log(currentTemperature);
+        console.log(currentTemperature);
         setCurrentTmp(currentTemperature);
       })
       .catch((err) => {
@@ -140,6 +141,7 @@ export const Main = () => {
               } else {
                 return (
                   <div key={idx}>
+                    <WeatherIcon fcstValue={a.fcstValue} />
                     <p>강수확률 : {a.fcstValue}%</p>
                     <hr />
                   </div>
