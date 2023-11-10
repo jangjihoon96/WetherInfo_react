@@ -190,8 +190,7 @@ export const Main = () => {
               return (
                 <StyledCard key={idx}>
                   <p className="time">{a.fcstTime.slice(0, 2)}시</p>
-                  <WeatherIcon fcstValue={a.fcstValue[1]} />
-                  <p className="percentage">{a.fcstValue[2]}%</p>
+                  <WeatherIcon fcstValue={a.fcstValue} />
                   <p className="tmp">{a.fcstValue[0]}&#8451;</p>
                 </StyledCard>
               );
@@ -274,13 +273,8 @@ const StyledCard = styled.div`
     padding: 0;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
-  .percentage {
-    font-size: 20px;
-    color: #f0f0f0;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-  }
   .tmp {
-    margin-left: 10px;
+    margin-left: 16px;
     font-weight: 700;
     font-size: 24px;
     padding: 0;
