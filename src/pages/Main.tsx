@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { WeatherIcon } from "../components/WeatherIcon";
+import { Jujeob } from "../components/Jujeob";
 
 export const Main = () => {
   let today = new Date();
@@ -64,6 +65,7 @@ export const Main = () => {
       near_hour_al = hours_al[0];
     }
   }
+  console.log(near_hour_al);
   const [region, setRegion] = useState<string>("");
   const [currentTmp, setCurrentTmp] = useState<any[]>([]);
   const [date, setDate] = useState(now);
@@ -190,6 +192,7 @@ export const Main = () => {
               return (
                 <StyledCard key={idx}>
                   <p className="time">{a.fcstTime.slice(0, 2)}시</p>
+                  <Jujeob fcstValue={a.fcstValue} />
                   <WeatherIcon fcstValue={a.fcstValue} />
                   <p className="tmp">{a.fcstValue[0]}&#8451;</p>
                 </StyledCard>
@@ -268,13 +271,15 @@ const StyledCard = styled.div`
   text-align: center;
   border-radius: 8px;
   .time {
+    flex-shrink: 0;
     font-weight: 700;
     font-size: 24px;
     padding: 0;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
   .tmp {
-    margin-left: 16px;
+    min-width: 60px;
+    margin-left: 10px;
     font-weight: 700;
     font-size: 24px;
     padding: 0;
