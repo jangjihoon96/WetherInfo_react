@@ -10,25 +10,59 @@ export const Main = () => {
   let day = today.getDate().toString();
   if (Number(day) < 10) day = "0" + day;
   let hours = today.getHours();
+  let minutes = today.getMinutes();
   let now = year.toString() + month.toString() + day.toString();
   let hours_al = ["02", "05", "08", "11", "14", "17", "20", "23"];
   let near_hour_al = "";
-  if (hours <= 3) {
-    near_hour_al = hours_al[0];
-  } else if (hours <= 6) {
-    near_hour_al = hours_al[1];
-  } else if (hours <= 9) {
-    near_hour_al = hours_al[2];
-  } else if (hours <= 12) {
-    near_hour_al = hours_al[3];
-  } else if (hours <= 15) {
-    near_hour_al = hours_al[4];
-  } else if (hours <= 18) {
-    near_hour_al = hours_al[5];
-  } else if (hours <= 21) {
-    near_hour_al = hours_al[6];
-  } else if (hours <= 24) {
-    near_hour_al = hours_al[7];
+  if (hours >= 23) {
+    if (minutes <= 10) {
+      near_hour_al = hours_al[6];
+    } else {
+      near_hour_al = hours_al[7];
+    }
+  } else if (hours >= 20) {
+    if (minutes <= 10) {
+      near_hour_al = hours_al[5];
+    } else {
+      near_hour_al = hours_al[6];
+    }
+  } else if (hours >= 17) {
+    if (minutes <= 10) {
+      near_hour_al = hours_al[4];
+    } else {
+      near_hour_al = hours_al[5];
+    }
+  } else if (hours >= 14) {
+    if (minutes <= 10) {
+      near_hour_al = hours_al[3];
+    } else {
+      near_hour_al = hours_al[4];
+    }
+  } else if (hours >= 11) {
+    if (minutes <= 10) {
+      near_hour_al = hours_al[2];
+    } else {
+      near_hour_al = hours_al[3];
+    }
+  } else if (hours >= 8) {
+    if (minutes <= 10) {
+      near_hour_al = hours_al[1];
+    } else {
+      near_hour_al = hours_al[2];
+    }
+  } else if (hours >= 5) {
+    if (minutes <= 10) {
+      near_hour_al = hours_al[0];
+    } else {
+      near_hour_al = hours_al[1];
+    }
+  } else if (hours >= 2) {
+    if (minutes <= 10) {
+      now = String(+now - 1);
+      near_hour_al = hours_al[7];
+    } else {
+      near_hour_al = hours_al[0];
+    }
   }
   const [region, setRegion] = useState<string>("");
   const [currentTmp, setCurrentTmp] = useState<any[]>([]);
@@ -40,7 +74,7 @@ export const Main = () => {
     const secretKey = process.env.REACT_APP_WEATHER_SECRET_KEY;
     axios
       .get(
-        `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${secretKey}&pageNo=1&numOfRows=100&dataType=JSON&base_date=${now}&base_time=${near_hour_al}00&nx=${nx}&ny=${ny}`
+        `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${secretKey}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${now}&base_time=${near_hour_al}00&nx=${nx}&ny=${ny}`
       )
       .then((res) => {
         let result = res.data.response.body.items.item;
@@ -225,7 +259,7 @@ const StyledContents = styled.div`
 
 const StyledCard = styled.div`
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   align-items: center;
   box-sizing: border-box;
   padding: 16px 30px;
@@ -236,8 +270,8 @@ const StyledCard = styled.div`
   border-radius: 8px;
   .time {
     font-weight: 700;
-    font-size: 20px;
-    padding: 10px 0;
+    font-size: 24px;
+    padding: 0;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
   .percentage {
@@ -246,8 +280,10 @@ const StyledCard = styled.div`
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
   .tmp {
+    margin-left: 10px;
     font-weight: 700;
-    padding: 20px 0 10px 0;
+    font-size: 24px;
+    padding: 0;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
 `;
