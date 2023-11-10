@@ -46,4 +46,8 @@ const StyledWeatherIcon = styled.div`
   img {
     width: 40px;
   }
+  @media screen and (max-width: 900px) {
+    order: 1;
+    margin: 0;
+  }
 `;

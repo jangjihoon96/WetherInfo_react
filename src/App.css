@@ -1,3 +1,12 @@
+@font-face {
+  font-family: "Binggrae-Regular";
+  src: url("./assets/fonts/BinggraeSamanco.otf");
+}
+@font-face {
+  font-family: "Binggrae-Bold";
+  src: url("./assets/fonts/BinggraeSamanco-Bold.otf");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,4 +20,5 @@ body {
   background-repeat: no-repeat;
   color: #fff;
   min-height: 100vh;
+  font-family: "Binggrae-Bold";
 }

@@ -216,6 +216,7 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
   h1 {
+    font-size: 40px;
     padding: 40px 0;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
@@ -246,14 +247,14 @@ const StyledUl = styled.ul`
 const StyledContents = styled.div`
   width: 100%;
   .region {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
     margin-top: 40px;
     margin-bottom: 10px;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
   .date {
-    font-size: 20px;
+    font-size: 28px;
     margin-bottom: 20px;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   }
@@ -284,5 +285,20 @@ const StyledCard = styled.div`
     font-size: 24px;
     padding: 0;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  }
+  @media screen and (max-width: 900px) {
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 20px 16px;
+    gap: 16px;
+    .time {
+      margin: 0;
+      order: 0;
+    }
+    .tmp {
+      min-width: auto;
+      margin: 0;
+      order: 2;
+    }
   }
 `;

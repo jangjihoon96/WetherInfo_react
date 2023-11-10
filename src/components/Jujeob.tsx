@@ -69,8 +69,18 @@ export const Jujeob: React.FC<JujeobProps> = ({ fcstValue }) => {
 };
 
 const StyledJujeob = styled.p`
+  font-family: "Binggrae-Regular";
   flex-grow: 1;
   margin: 0 20px;
   font-size: 20px;
-  color: #ccc;
+  color: #fff;
+  @media screen and (max-width: 900px) {
+    padding-top: 20px;
+    border-top: 1px solid #555;
+    order: 3;
+    width: 100%;
+    font-size: 24px;
+  }
+  @media screen and (max-width: 500px) {
+  }
 `;
