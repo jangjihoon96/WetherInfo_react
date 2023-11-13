@@ -282,8 +282,8 @@ const StyledCard = styled.div`
   flex-flow: row nowrap;
   align-items: center;
   box-sizing: border-box;
-  padding: 16px 30px;
-  margin-bottom: 20px;
+  padding: 12px 24px;
+  margin-bottom: 12px;
   background-color: rgba(0, 0, 0, 0.3);
   font-size: 24px;
   text-align: center;

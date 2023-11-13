@@ -43,11 +43,13 @@ export const WeatherIcon: React.FC<WeatherIconProps> = ({ fcstValue }) => {
 const StyledWeatherIcon = styled.div`
   margin-left: auto;
   p {
+    margin-top: -3px;
     font-size: 16px;
-    color: #f0f0f0;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    color: #dfdfdf;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
   img {
+    margin-top: 1px;
     width: 40px;
   }
   @media screen and (max-width: 900px) {

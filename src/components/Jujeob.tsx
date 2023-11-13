@@ -88,7 +88,8 @@ const StyledJujeob = styled.p`
   flex-grow: 1;
   margin: 0 20px;
   font-size: 20px;
-  color: #fff;
+  color: #dfdfdf;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   @media screen and (max-width: 900px) {
     padding-top: 20px;
     border-top: 1px solid #555;
