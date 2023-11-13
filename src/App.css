@@ -13,11 +13,20 @@
   box-sizing: border-box;
 }
 body {
-  background-image: url("./assets/weather_bg.png");
+  background: rgb(17, 64, 103);
+  background: linear-gradient(
+    180deg,
+    rgba(17, 64, 103, 1) 0%,
+    rgba(54, 93, 123, 1) 25%,
+    rgba(81, 129, 154, 1) 50%,
+    rgba(149, 175, 190, 1) 75%,
+    rgba(211, 231, 232, 1) 100%
+  );
+  /* background-image: url("./assets/weather_bg.png");
   background-color: #222222;
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   color: #fff;
   min-height: 100vh;
   font-family: "Binggrae-Bold";
