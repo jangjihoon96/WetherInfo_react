@@ -194,7 +194,21 @@ export const Main = () => {
             .map((a, idx) => {
               return (
                 <StyledCard key={idx}>
-                  <p className="time">{a.fcstTime.slice(0, 2)}시</p>
+                  <p className="time">
+                    {(() => {
+                      let changeHour = parseInt(a.fcstTime.slice(0, 2), 10);
+                      let timeOfDay;
+                      if (changeHour < 12) {
+                        timeOfDay = "오전";
+                      } else {
+                        timeOfDay = "오후";
+                        if (changeHour !== 12) {
+                          changeHour %= 12;
+                        }
+                      }
+                      return `${timeOfDay} ${changeHour}시`;
+                    })()}
+                  </p>
                   <Jujeob fcstValue={a.fcstValue} />
                   <WeatherIcon fcstValue={a.fcstValue} />
                   <p className="tmp">{a.fcstValue[0]}&#8451;</p>
@@ -295,6 +309,8 @@ const StyledCard = styled.div`
     padding: 20px 16px;
     gap: 16px;
     .time {
+      font-size: 20px;
+      width: 60px;
       margin: 0;
       order: 0;
     }
