@@ -64,6 +64,9 @@ export const Main = () => {
     } else {
       near_hour_al = hours_al[0];
     }
+  } else {
+    now = String(+now - 1);
+    near_hour_al = hours_al[7];
   }
   console.log(near_hour_al);
   const [region, setRegion] = useState<string>("");
