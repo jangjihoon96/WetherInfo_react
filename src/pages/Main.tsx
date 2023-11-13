@@ -221,7 +221,7 @@ const StyledContainer = styled.div`
   h1 {
     font-size: 40px;
     padding: 40px 0;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 `;
 const StyledUl = styled.ul`
@@ -254,12 +254,12 @@ const StyledContents = styled.div`
     font-weight: 700;
     margin-top: 40px;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
   .date {
     font-size: 28px;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -279,7 +279,7 @@ const StyledCard = styled.div`
     font-weight: 700;
     font-size: 24px;
     padding: 0;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
   .tmp {
     min-width: 60px;
@@ -287,7 +287,7 @@ const StyledCard = styled.div`
     font-weight: 700;
     font-size: 24px;
     padding: 0;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
   @media screen and (max-width: 900px) {
     flex-flow: row wrap;
