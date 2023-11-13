@@ -72,6 +72,7 @@ export const Main = () => {
   const [region, setRegion] = useState<string>("");
   const [currentTmp, setCurrentTmp] = useState<any[]>([]);
   const [date, setDate] = useState(now);
+  const [active, setActive] = useState<number>(0);
   const filterData = ["POP", "SKY", "TMP"];
   const fetchData = (region: string, nx: number, ny: number) => {
     setRegion(region);
@@ -117,36 +118,47 @@ export const Main = () => {
   };
   const seoulTmp = () => {
     fetchData("서울", 60, 127);
+    setActive(0);
   };
   const inchenTmp = () => {
     fetchData("인천", 55, 124);
+    setActive(1);
   };
   const gyeonggidoTmp = () => {
     fetchData("경기도", 60, 121);
+    setActive(2);
   };
   const gangwondoTmp = () => {
     fetchData("강원도", 92, 131);
+    setActive(3);
   };
   const chungcheongbukdoTmp = () => {
     fetchData("충청북도", 69, 106);
+    setActive(4);
   };
   const chungcheongnamdoTmp = () => {
     fetchData("충청남도", 68, 100);
+    setActive(5);
   };
   const jeollabukdoTmp = () => {
     fetchData("전라북도", 63, 89);
+    setActive(6);
   };
   const jeollanamdoTmp = () => {
     fetchData("전라남도", 50, 67);
+    setActive(7);
   };
   const gyeongsangbukdoTmp = () => {
     fetchData("경상북도", 91, 106);
+    setActive(8);
   };
   const gyeongsangnamdoTmp = () => {
     fetchData("경상남도", 90, 77);
+    setActive(9);
   };
   const jejuTmp = () => {
     fetchData("제주도", 52, 38);
+    setActive(10);
   };
   let korea = [
     { region: "서울", nx: 60, ny: 127, event: seoulTmp },
@@ -171,7 +183,11 @@ export const Main = () => {
         {korea.map((btn, idx) => {
           return (
             <li key={idx}>
-              <button type="button" onClick={btn.event}>
+              <button
+                type="button"
+                onClick={btn.event}
+                className={active === idx ? "active" : undefined}
+              >
                 {btn.region}
               </button>
             </li>
@@ -258,6 +274,9 @@ const StyledUl = styled.ul`
     &:hover {
       background-color: #55b2aa;
     }
+  }
+  button.active {
+    background-color: #55b2aa;
   }
 `;
 
