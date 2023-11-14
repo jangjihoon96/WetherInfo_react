@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { WeatherIcon } from "../components/WeatherIcon";
 import { Jujeob } from "../components/Jujeob";
+import { Title } from "../components/Title";
+import { Container } from "../components/Container";
 
 export const Main = () => {
   let today = new Date();
@@ -68,7 +70,6 @@ export const Main = () => {
     now = String(+now - 1);
     near_hour_al = hours_al[7];
   }
-  console.log(near_hour_al);
   const [region, setRegion] = useState<string>("");
   const [currentTmp, setCurrentTmp] = useState<any[]>([]);
   const [date, setDate] = useState(now);
@@ -88,7 +89,7 @@ export const Main = () => {
         const currentTemperature = result.filter((item: any) =>
           filterData.includes(item.category)
         );
-        console.log(currentTemperature);
+        // console.log(currentTemperature);
         // 결과를 저장할 빈 배열
         const outputData: any[] = [];
 
@@ -109,7 +110,7 @@ export const Main = () => {
             outputData.push(item);
           }
         });
-        console.log(outputData);
+        // console.log(outputData);
         setCurrentTmp(outputData);
       })
       .catch((err) => {
@@ -177,8 +178,8 @@ export const Main = () => {
     seoulTmp();
   }, []);
   return (
-    <StyledContainer>
-      <h1>오늘의 날씨</h1>
+    <Container>
+      <Title>오늘의 주접 날씨</Title>
       <StyledUl>
         {korea.map((btn, idx) => {
           return (
@@ -235,25 +236,10 @@ export const Main = () => {
           <div>데이터 불러오는 중...</div>
         )}
       </StyledContents>
-    </StyledContainer>
+    </Container>
   );
 };
 
-const StyledContainer = styled.div`
-  box-sizing: border-box;
-  max-width: 840px;
-  padding: 0 20px;
-  margin: 0 auto;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  h1 {
-    font-size: 40px;
-    padding: 40px 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  }
-`;
 const StyledUl = styled.ul`
   display: flex;
   flex-flow: row wrap;
