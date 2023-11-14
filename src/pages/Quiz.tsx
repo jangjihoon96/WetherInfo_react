@@ -40,7 +40,7 @@ export const Quiz: React.FC = () => {
     setHint(true);
   };
   const handleNext = (): void => {
-    console.log("hi");
+    alert(`정답: ${quizData?.answer}`);
   };
 
   useEffect(() => {
