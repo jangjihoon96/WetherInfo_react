@@ -6,7 +6,7 @@ import { Jujeob } from "../components/Jujeob";
 import { Title } from "../components/Title";
 import { Container } from "../components/Container";
 
-export const Main = () => {
+export const Main: React.FC = () => {
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth() + 1;
@@ -70,11 +70,19 @@ export const Main = () => {
     now = String(+now - 1);
     near_hour_al = hours_al[7];
   }
+  interface CurrentTmpProps {
+    baseDate: string;
+    baseTime: string;
+    fcstDate: string;
+    fcstTime: string;
+    fcstValue: string;
+    category: string;
+  }
   const [region, setRegion] = useState<string>("");
-  const [currentTmp, setCurrentTmp] = useState<any[]>([]);
+  const [currentTmp, setCurrentTmp] = useState<CurrentTmpProps[]>([]);
   const [date, setDate] = useState(now);
   const [active, setActive] = useState<number>(0);
-  const filterData = ["POP", "SKY", "TMP"];
+  const filterData: string[] = ["POP", "SKY", "TMP"];
   const fetchData = (region: string, nx: number, ny: number) => {
     setRegion(region);
     setCurrentTmp([]);
