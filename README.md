@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+# 오늘의 주접 날씨
+오늘의 날씨를 조회하여 보여주는 웹어플리케이션입니다. 각 시간별 가벼운 주접멘트가 포함되어 있으며, 간단한 미니게임을 즐길 수 있습니다.
+<br/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ✨ 프로젝트 시작하기
 
-## Available Scripts
+- 기상청 단기예보 API 환경변수 적용
 
-In the project directory, you can run:
+```bash
 
-### `npm start`
+npm install
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+npm run start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+<br/>
 
-### `npm test`
+## 🌟 배포 주소
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### https://jangjihoon96.github.io/
 
-### `npm run build`
+<br/>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔖 프로젝트 설명
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 기상청 오픈 API를 활용하여 전국 날씨를 조회하는 웹어플리케이션 입니다.
+- 오픈 API의 중요한 key값은 env 환경변수에 저장하여 사용중 입니다.
+- React Hook을 사용하여 Client Server Rendering을 하여 새로고침 없이 정보들을 확인할 수 있습니다.
+- 현재 useState를 사용해 상태를 관리하고 있으며, Recoil를 사용하여 상태를 관리할 예정입니다.
+- 아기자기한 디자인과 사용자의 호기심을 유도하는 주접 멘트가 포함되어 있습니다. 멘트는 계속해서 추가해 나가고 있으며, 주접 내용은 대부분 해당 온도와 날씨에 따라 달라집니다.
+- 웹어플리케이션 속 미니 게임을 추가하였습니다. 페이지에 들어온 사용자가 간단하게 즐기고 갈 수 있는 게임들이며, 현재는 넌센스 퀴즈가 개발되어 있습니다. 추후 다른 게임들도 추가하여 넣을 예정입니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+<br/>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 📖 개발 환경 구성
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### React, Typescript, Styled-Component
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<br/>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## ✅ 완성된 모습
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+|메인 날씨|미니 게임|
+|:---:|:---:|
+|<img width="733" alt="스크린샷 2023-11-15 오후 1 51 36" src="https://github.com/jangjihoon96/WetherInfo_react/assets/119390662/70b475bd-3f85-48d1-be0d-58c3b985805e">|<img width="733" alt="스크린샷 2023-11-15 오후 1 53 29" src="https://github.com/jangjihoon96/WetherInfo_react/assets/119390662/2b01b447-909f-4306-83eb-d997541d65a6">|
+|넌센스 퀴즈||
+|<img width="733" alt="스크린샷 2023-11-15 오후 1 53 02" src="https://github.com/jangjihoon96/WetherInfo_react/assets/119390662/db97ddaa-fdff-42e1-86d6-ce608041b7bc">||
