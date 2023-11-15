@@ -87,8 +87,11 @@ export const Quiz: React.FC = () => {
         >
           {quizData && quizData.hint}
         </StyledHint>
-        <StyledNext onClick={handleNext}>
-          문제가 어려우신가요? <button type="button">정답 확인</button>
+        <StyledNext>
+          문제가 어려우신가요?{" "}
+          <button type="button" onClick={handleNext}>
+            정답 확인
+          </button>
         </StyledNext>
       </Container>
       <Popup active={popup} content={popupContent} setPopup={setPopup} />
