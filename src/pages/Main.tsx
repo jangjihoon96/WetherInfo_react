@@ -125,65 +125,38 @@ export const Main: React.FC = () => {
         console.log(err);
       });
   };
-  const seoulTmp = () => {
-    fetchData("서울", 60, 127);
-    setActive(0);
+  const loadTmp = (region: string, x: number, y: number, idx: number) => {
+    fetchData(region, x, y);
+    setActive(idx);
   };
-  const inchenTmp = () => {
-    fetchData("인천", 55, 124);
-    setActive(1);
-  };
-  const gyeonggidoTmp = () => {
-    fetchData("경기도", 60, 121);
-    setActive(2);
-  };
-  const gangwondoTmp = () => {
-    fetchData("강원도", 92, 131);
-    setActive(3);
-  };
-  const chungcheongbukdoTmp = () => {
-    fetchData("충청북도", 69, 106);
-    setActive(4);
-  };
-  const chungcheongnamdoTmp = () => {
-    fetchData("충청남도", 68, 100);
-    setActive(5);
-  };
-  const jeollabukdoTmp = () => {
-    fetchData("전라북도", 63, 89);
-    setActive(6);
-  };
-  const jeollanamdoTmp = () => {
-    fetchData("전라남도", 50, 67);
-    setActive(7);
-  };
-  const gyeongsangbukdoTmp = () => {
-    fetchData("경상북도", 91, 106);
-    setActive(8);
-  };
-  const gyeongsangnamdoTmp = () => {
-    fetchData("경상남도", 90, 77);
-    setActive(9);
-  };
-  const jejuTmp = () => {
-    fetchData("제주도", 52, 38);
-    setActive(10);
+  const handleButtonClick = (
+    region: string,
+    x: number,
+    y: number,
+    idx: number
+  ) => {
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+      fetchData(region, x, y);
+      setActive(idx);
+    };
+
+    return handleClick;
   };
   let korea = [
-    { region: "서울", nx: 60, ny: 127, event: seoulTmp },
-    { region: "인천", nx: 55, ny: 124, event: inchenTmp },
-    { region: "경기도", nx: 60, ny: 121, event: gyeonggidoTmp },
-    { region: "강원도", nx: 92, ny: 131, event: gangwondoTmp },
-    { region: "충청북도", nx: 69, ny: 106, event: chungcheongbukdoTmp },
-    { region: "충청남도", nx: 68, ny: 100, event: chungcheongnamdoTmp },
-    { region: "전라북도", nx: 63, ny: 89, event: jeollabukdoTmp },
-    { region: "전라남도", nx: 50, ny: 67, event: jeollanamdoTmp },
-    { region: "경상북도", nx: 91, ny: 106, event: gyeongsangbukdoTmp },
-    { region: "경상남도", nx: 90, ny: 77, event: gyeongsangnamdoTmp },
-    { region: "제주도", nx: 52, ny: 38, event: jejuTmp },
+    { region: "서울", nx: 60, ny: 127 },
+    { region: "인천", nx: 55, ny: 124 },
+    { region: "경기도", nx: 60, ny: 121 },
+    { region: "강원도", nx: 92, ny: 131 },
+    { region: "충청북도", nx: 69, ny: 106 },
+    { region: "충청남도", nx: 68, ny: 100 },
+    { region: "전라북도", nx: 63, ny: 89 },
+    { region: "전라남도", nx: 50, ny: 67 },
+    { region: "경상북도", nx: 91, ny: 106 },
+    { region: "경상남도", nx: 90, ny: 77 },
+    { region: "제주도", nx: 52, ny: 38 },
   ];
   useEffect(() => {
-    seoulTmp();
+    loadTmp("서울", 60, 127, 0);
   }, []);
   return (
     <Container>
@@ -194,7 +167,7 @@ export const Main: React.FC = () => {
             <li key={idx}>
               <button
                 type="button"
-                onClick={btn.event}
+                onClick={handleButtonClick(btn.region, btn.nx, btn.ny, idx)}
                 className={active === idx ? "active" : undefined}
               >
                 {btn.region}
